@@ -1,6 +1,13 @@
+/**
+ * @file
+ * @brief Main file
+ * @authors Pavlov Ilya
+ *
+ * File contains entry point and some tests
+ */
+
 #include "engine/engine.h"
 #include <iostream>
-#include <string>
 
 class Summator {
 public:
