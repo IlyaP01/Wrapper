@@ -78,6 +78,7 @@ public:
   /**
    * Call method with selected arguments
    * @param[in] args map with argumetns and their names
+   * @return the result of method
    */
   int execute(const std::unordered_map<std::string, int>& args) {
     std::vector<int> final_args;

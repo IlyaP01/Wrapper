@@ -21,6 +21,7 @@ void Engine::register_command(std::string name, Wrapper* wrapper) {
  * Execute command with selected name and arguments
  * @param[in] name command name
  * @param[in] args map with argumetns and their names
+ * @return the result of command
  */
 int Engine::execute(std::string name, const std::unordered_map<std::string, int>& args) {
   auto command = commands.find(name);
