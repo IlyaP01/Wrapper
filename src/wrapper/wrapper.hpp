@@ -12,6 +12,7 @@
 #include <vector>
 #include <unordered_map>
 #include <functional>
+#include <memory>
 
 /**
  * Needed in order not to make the main Wrapper class template
@@ -51,7 +52,7 @@ private:
  */
 class Wrapper {
 private:
-  WrapperBase* pImpl;
+  std::unique_ptr<WrapperBase> pImpl;
   std::vector<std::string> argsOrder;
   std::unordered_map<std::string, int> defaultVals;
 
@@ -63,14 +64,15 @@ public:
    * @param[in] args map with default values of args
    */
   template<class Class, class... Args>
-  Wrapper(Class* obj, int (Class::* method)(Args...), const std::vector<std::pair<std::string, int>>& args) {
+  Wrapper(Class* obj, int (Class::* method)(Args...), const std::vector<std::pair<std::string, int>>& args)
+  : pImpl(new WrapperTemp<Class, Args... >(obj, method)) {
+
     argsOrder.reserve(args.size());
     defaultVals.reserve(args.size());
     for (auto& arg : args) {
       argsOrder.push_back(arg.first);
       defaultVals.insert(arg);
     }
-    pImpl = new WrapperTemp<Class, Args...>(obj, method);
   }
 
   /**
